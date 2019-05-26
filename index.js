@@ -6,8 +6,35 @@ function distanceFromHqInBlocks (street) {
   }
 }
  
-function distanceFromHqInFeet (someValue) {
-  distanceFromHqInBlocks(someValue);
-  // calls distanceFromHqInBlocks from inside the distanceFromHqInFeet function, passing the argument from distanceFromHqInFeet into distanceFromHqInBlocks
-  //the return value of distanceFromHqInBlocks can then be used to calculate feet
+function distanceFromHqInFeet(street) {
+  return (distanceFromHqInBlocks(street) * 264)
+}
+
+function distanceTravelledInFeet(start, end) {
+  if (start > end) {
+    return (start - end) * 264
+  } else {
+    return (end - start) * 264
+  }
+}
+
+function calculatesFarePrice(start, destination) {
+  const distance = distanceTravelledInFeet(start, destination);
+  let cost;
+
+  switch(true) {
+    case (distance <= 400):
+      cost = 0
+      break;
+    case (distance > 400 && distance <= 2000):
+      cost = ((distance - 400) * 0.02)
+      break;
+    case (distance > 2000 && distance <= 2500):
+      cost = 25
+      break;
+    default:
+      return "cannot travel that far"
+  }
+
+  return cost;
 }
